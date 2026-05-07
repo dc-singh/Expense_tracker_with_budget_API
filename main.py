@@ -1,13 +1,15 @@
-from fastapi import FastAPI, Depends
-from database import get_db
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
+from database import Base, engine
+from models.user import User
+from models.category import Category
+from models.expense import Expense
+from models.budget import Budget
 
-app =FastAPI(title="Expense Tracker API", description="API for Expense Tracking", version="1.0.0")
+
+app = FastAPI(title="Expense Tracker & Budgeting API", version="1.0.0")
+
+Base.metadata.create_all(bind=engine)
 
 @app.get("/")
-def read_root():
-    return {"MSG": "Hello World"}
-
-@app.get("/DBConnection")
-def getdb(db: Session = Depends(get_db)):
-    return {"MSG": "Connection Successfull"}
+def root():
+    return {"msg":"Done"}

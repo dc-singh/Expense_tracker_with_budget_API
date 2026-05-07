@@ -1,0 +1,10 @@
+# Install these packages using pip:
+
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
+pydantic[email]
+python-jose[cryptography]
+passlib[bcrypt]
