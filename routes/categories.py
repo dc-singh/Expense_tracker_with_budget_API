@@ -32,6 +32,7 @@ def update_category(category_id: int, data: CategoryCreate, db: Session = Depend
         raise HTTPException(status_code=404, detail="Category not found")
 
     category.name = data.name
+    
     db.commit()
     db.refresh(category)
     return category 
