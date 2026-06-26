@@ -36,7 +36,7 @@ expense-tracker-api/
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/expense-tracker-api.git
+git clone https://github.com/dc-singh/expense-tracker-api.git
 cd expense-tracker-api
 
 # Virtual environment
