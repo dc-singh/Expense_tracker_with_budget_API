@@ -5,6 +5,7 @@ from database import get_db
 from models.expense import Expense
 from schema.expense import ExpenseCreate, ExpenseUpdate, ExpenseResponse
 from auth.jwt_handler import verify_token
+from calendar import monthrange
 
 router = APIRouter(prefix="/expenses", tags=["Expenses"])
 
@@ -44,9 +45,15 @@ def all_expenses(
     
     if month:
         year, mon = month.split("-")
+        year = int(year)
+        mon = int(mon)
+        
+        # Get last day of the month dynamically
+        last_day = monthrange(year, mon)[1]
+        
         query = query.filter(
-            Expense.date >= f"{year}-{mon}-01",
-            Expense.date <= f"{year}-{mon}-31"
+            Expense.date >= f"{year}-{mon:02d}-01",
+            Expense.date <= f"{year}-{mon:02d}-{last_day}"
         )
     
     if min_amount:

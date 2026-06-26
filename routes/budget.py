@@ -6,6 +6,7 @@ from models.expense import Expense
 from models.category import Category
 from schema.budget import BudgetCreate, BudgetResponse, BudgetStatus
 from auth.jwt_handler import verify_token
+from calendar import monthrange
 
 router = APIRouter(prefix="/budgets", tags=["Budgets"])
 
@@ -57,7 +58,12 @@ def budget_status(
     
     result = []
     year, mon = month.split("-")
-    
+    year = int(year)
+    mon = int(mon)
+
+    # Get last day of month dynamically (handles 28/29/30/31)
+    last_day = monthrange(year, mon)[1]
+
     # Step 2: For each budget calculate actual spending
     for budget in budgets:
         
@@ -65,8 +71,8 @@ def budget_status(
         expenses = db.query(Expense).filter(
             Expense.user_id == user_id,
             Expense.category_id == budget.category_id,
-            Expense.date >= f"{year}-{mon}-01",
-            Expense.date <= f"{year}-{mon}-31"
+            Expense.date >= f"{year}-{mon:02d}-01",
+            Expense.date <= f"{year}-{mon:02d}-{last_day}"
         ).all()
         
         total_spent = sum(e.amount for e in expenses)

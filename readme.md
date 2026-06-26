@@ -3,7 +3,6 @@
 A production-ready REST API for personal finance management built with **FastAPI** and **PostgreSQL**. Track expenses, set monthly budgets, and get smart spending insights with real-time budget vs actual calculations.
 
 ---
-
 ## 🚀 Features
 
 ### 🔐 Authentication & Security
@@ -82,7 +81,6 @@ expense-tracker-api/
 ---
 
 ## 🗄️ Database Schema
-
 ```
 ┌─────────────┐       ┌──────────────┐
 │   USERS     │       │  CATEGORIES  │
